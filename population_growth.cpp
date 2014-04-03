@@ -21,7 +21,6 @@ int main()
   //Outputs identifying information, and purpose of program
   cout<<"Name: Hector de Perio "<<endl;
   cout<<"IDE and Compiler: Xcode 5"<<endl;
-  cout<<"File Name: Growth.cpp"<<endl;
   cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
   cout<< "Display world populations from now up to 75 years, and the growth rate per year"<<endl<<endl;
 
