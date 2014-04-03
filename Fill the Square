@@ -1,0 +1,63 @@
+//"Name: Hector de Perio "
+//"IDE and Compiler: Xcode 5 (Mac) and Dev-C++ (Windows)"
+
+
+//libraries
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <string>
+using std::string;
+
+//used for atoi
+#include <cstdlib>
+
+//subprogram draws the box
+void box (int a, char buf1)
+
+{
+  for (int x=1;x<=a;x++)
+  {
+    for (int y=1;y<=a;y++)
+    {
+      cout<<buf1;
+    }
+    cout<<endl;
+  }
+}
+
+int main()
+{
+  //identifying information
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"This program draws a square of sizes 1-20, filled with a character of your choice. If you input any other value besides 1-20, the program will close."<<endl<<endl;
+  
+  while(true)
+  {
+    //variable declarations
+    int a;
+    string buf;
+    char buf1;
+    
+    //user input prompt
+    cout<<"Enter the size of the square (from 1 to 20). Any other input will close the program: \n";
+    cin>>buf; a=atoi(buf.c_str());
+    cin.ignore(1000,10);
+    
+    //end the program if the box size is outside 1-20 range
+    if (a<1) break;
+    if (a>20) break;
+    
+    //prompt for one character
+    cout<<"Enter one character to fill the box with (ex. inputting # will print a square full of #): \n";
+    cin>>buf1;
+    cin.ignore(1000,10);
+    
+    box (a,buf1);
+  }
+}
+
