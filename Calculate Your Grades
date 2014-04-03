@@ -1,0 +1,112 @@
+//"Name: Hector de Perio "
+//"IDE and Compiler: Xcode 5 (Mac) and Dev-C++ (Windows)"
+//"Advanced C/C++ Control Structures"
+
+
+//libraries
+#include <cstdlib>
+
+#include<iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <string>
+using std::string;
+
+
+//functions outside of main
+int histogram(int, const int[], int[]);
+int readArray(int, int,int,int,int,int);
+int stat(int, const int[],int&, int&, int&);
+
+//double getAverage(int,int,int,int);
+int stat(int *score, int index,int highest, int lowest)
+{
+  //find the average
+  int i ;
+  int scoreTotal = 0;
+  for (i = 0; i < index; i++)
+  {
+    scoreTotal += score[i];
+  }
+  double average = (double)scoreTotal / index;
+  
+  // sort letter grade
+  int aGrade=0;
+  int bGrade=0;
+  int cGrade=0;
+  int dGrade=0;
+  int fGrade=0;
+  
+  for (i = 0; i <=index; i++)
+  {
+    if (score[i] >= 90) aGrade++; //90 or higher is an A
+    else if (score[i] >= 80 && score[i]<=89) bGrade++; //80-89 is a B
+    else if (score[i] >= 70 && score[i]<=79) cGrade++; //70-79 is a C
+    else if (score[i] >= 60 && score[i]<=69) dGrade++; //60-69 is a D
+    else if (score[i] <= 59 && score[i]>=0) fGrade++; //59-0 is an F
+  }
+  cout<<"Number of A grade(s): "<<aGrade<<endl;
+  cout<<"Number of B grade(s): "<<bGrade<<endl;
+  cout<<"Number of C grade(s): "<<cGrade<<endl;
+  cout<<"Number of D grade(s): "<<dGrade<<endl;
+  cout<<"Number of F grade(s): "<<fGrade<<endl;
+  cout<<"Lowest: "<<lowest<<endl;
+  cout<<"Highest: "<<highest<<endl;
+  cout<<"Average: ";
+  return average;
+}
+
+
+int main()
+{
+  
+  //identifying information
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"Input up to 50 scores. The program finds the average, minimum, and maximum values from your input(s). To quit, input -1"<<endl<<endl;
+  
+  //create an empty list
+  string buf;
+  const int MAX_SCORES = 50;
+  int score[MAX_SCORES];
+  int index=0;
+  int scoreCounter=1;
+  int highest=0;
+  int lowest=0;
+  
+  //read and save the scores
+  do
+  {
+    string buf;
+    //ask for scores
+    cout<<"Input some scores. You can enter up to 50 scores. Input -1 to quit: \n";
+    cout<<"Input score #"<<scoreCounter<<endl;
+    cin >> buf;
+    cin.ignore(1000,10);
+    score[index]=atoi(buf.c_str());
+    cout << endl;
+    scoreCounter++;
+    
+    //add score to list, until the user enters -1 or the list becomes full
+    if (score[index]==-1 || scoreCounter==51) break;
+    
+    //sort the numbers, and find the highest and lowest values
+    if(index == 0)
+    {
+      lowest = score[0];
+      highest = score[0];
+    }
+    if(lowest > score[index])
+      lowest = score[index];
+    if(highest < score[index])
+      highest = score[index];
+    
+    index++;
+  } while(index < MAX_SCORES || score[index]!=-1);
+
+  cout<<stat(score,index,highest,lowest)<<endl;
+
+} //main
