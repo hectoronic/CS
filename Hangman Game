@@ -1,0 +1,327 @@
+//"Name: Hector de Perio "
+//"IDE and Compiler: Xcode 5 (Mac) and Dev-C++ (Windows)"
+//"Advanced C/C++ Control Structures"
+//Lab 5: The Hangman Game
+//"File: hangman.cpp"
+
+#include <algorithm>
+#include <cctype>
+#include<ctime>
+
+#include<fstream>
+using std::ifstream;
+using std::ofstream;
+
+#include<iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include<string>
+using std::string;
+using std::getline;
+
+
+//functions outside of main
+bool winorlose (int,int);
+void hman(int);
+bool valid(char c);
+
+int main()
+{
+  //run hangman
+  
+  //identifying information
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Lab 5: The Hangman Game"<<endl;
+  cout<<"File: hangman.cpp"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"Try hangman (guess the letters contained in a word). You win if you make less than 6 incorrect guesses."<<endl<<endl;
+  
+  //variable declarations
+  char secretw[100] = {""};
+  char word[100][100];
+  char words[100];
+  char guesses[20];
+  char guess;
+  int gr = 0;
+  int gw = 0;
+  int onef = 0;
+  int charNull = 0;
+  int randWord = 0;
+  int numberw = 0;
+  srand(time(NULL));
+  
+  //read words from words.txt
+  ifstream fin ("words.txt");
+  if (!fin.good()) throw "I/O error";
+  numberw = 0;
+  int lettern = 0;
+  int letter = 0;
+  char test[10000];
+  for(int x = 0; x < 10000; x++)
+  {
+    test[x] = '.';
+    fin.get(test[x]);
+    lettern++;
+  }
+  
+  for(int i = 0; i <lettern; i++)
+  {
+    if(valid(test[i]))
+    {
+      word[numberw][letter] = test[i];
+      letter++;
+    }
+    
+    else
+    {
+      numberw++;
+      letter = 0;
+    }
+    
+    if(int(test[i]) == 46)
+    {
+      if(numberw > 1)
+      {
+        numberw--;
+      }
+    }
+  }
+  
+  randWord = (rand() % numberw);
+  
+  
+  for(int j = 0; ((j <= 100) && (word[randWord][j] != '\0')); j++)
+  {
+    word[randWord][j] = tolower(word[randWord][j]);
+    secretw[j] = word[randWord][j];
+    charNull++;
+  }
+  
+  
+  //hide the secret word
+  for(int i = 0; i <= charNull - 1; i++)
+  {
+    words[i] = '_';
+  }
+  int win = 0;
+  int lose = 0;
+  while(gw!=6&&win!= 1)
+  {
+    cout << "Please guess a letter" << endl;
+    cin>>guess;
+    cin.ignore(1000,10);
+    guess=tolower(guess);
+    
+    cout << endl;
+    onef = 0;
+    gr = 0;
+    
+    // determine right or wrong guess
+    for(int j = 0; j <= charNull - 1; j++)
+    {
+      if(word[randWord][j] == guess)
+      {
+        onef++;
+        cout <<"The letter '"<< guess << "' is part of the word" << endl;
+        words[j] = guess;
+      }
+    }
+    
+    if(onef == 0)
+    {
+      cout <<"The letter '"<< guess <<"' is not part of the word" << endl;
+      guesses[gw] = guess;
+      gw++;
+    }
+    
+    for(int i = 0; i <= charNull - 1; i++)
+    {
+      cout << words[i] << " ";
+    }
+    
+    cout << endl << "List of letter(s) used : ";
+    for(int i = 0; i < gw; i++)
+    {
+      cout << guesses[i] << " ";
+    }
+    
+    // counts right
+    for(int z = 0; z <= charNull - 1; z++)
+    {
+      if(words[z] == word[randWord][z])
+      {
+        gr++;
+      }
+      
+      if(gr >= charNull)
+      {
+        win = 1;
+      }
+    }
+    // display right and wrong count attempts
+    cout << endl<<"# Right: " << gr << endl;
+    cout << "# Wrong: " <<gw << endl;
+    
+    //draw the hang man figure
+    hman(gw);
+    
+    
+    if (gw==6 || win==1)
+    {
+    	cout<<"The word is: ";
+      for(int j = 0; j < charNull; j++)
+      {
+        cout << secretw[j];
+      }
+      cout<<endl;
+    }
+    
+    //triggers win or lose condition
+    winorlose(win,gw);
+  }
+} //main
+
+
+//subprogram that displays the win or lose condition
+bool winorlose(int win, int gw)
+{ //1st
+  //win condition
+  if (win==1)
+  {
+    cout<<"\nYou win!\n";
+    return true;
+  } //end if
+  
+  //lose condition
+  else if (gw==6)
+  { //3rd
+    cout << "You have lost! Game Over \n";
+    return true;
+  } //end if
+  else return false;
+} //end bool
+
+//function that validates user input
+bool valid(char c)
+{
+  switch(c)
+  {
+    case'a':case'b':case'c':case'd':case'e':case'f':case'g':case'h':case'i':case'j':case'k':case'l':case'm':case'n':case'o':case'p':case'q':case'r':
+    case's':case't':case'u':case'v':case'w':case'x': case'y':case'z':
+      return true;
+      break;
+    case'A':case'B':case'C':case'D':case'E':case'F':case'G':case'H':case'I':case'J':case'K':case'L':case'M':case'N':case'O':case'P':case'Q':case'R':
+    case'S':case'T':case'U':case'V':case'W':case'X':case'Y':case'Z':
+      return true;
+      break;
+  }
+  return false;
+}
+
+
+//draw hangman graphics
+void hman(int gw)
+{
+  switch(gw)
+  {
+    case 1:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+    case 2:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|   -+-\n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+    case 3:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|   -+-\n";
+      cout <<"|    | \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+    case 4:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|   -+-\n";
+      cout <<"|    | \n";
+      cout <<"|    + \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+    case 5:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|   -+-\n";
+      cout <<"|    | \n";
+      cout <<"|    + \n";
+      cout <<"|   /  \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+    case 6:
+    {
+      cout <<"+----+\n";
+      cout <<"|    |\n";
+      cout <<"|    O\n";
+      cout <<"|   -+-\n";
+      cout <<"|    | \n";
+      cout <<"|    + \n";
+      cout <<"|   / \\\n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"|     \n";
+      cout <<"--+--------\n";
+      break;
+    }
+      
+  } // end switch
+}
