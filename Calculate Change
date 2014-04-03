@@ -1,0 +1,281 @@
+//"Name: Hector de Perio "
+//"IDEs and Compilers used: Xcode 5 (Mac OS X) and Dev-C++ (Windows)"
+//"This program calculates change from amount due and tendered, then determines the correct amount of dollar bills and/or coins."
+
+#include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
+using std::ios;
+
+#include <string>
+using std::string;
+
+//atof
+#include <cstdlib>
+
+#include <iomanip>
+using std::setprecision;
+
+int main ()
+{
+  //Outputs identifying information, and purpose of program
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDEs and Compilers used: Xcode 5 (Mac OS X) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<< "This program calculates change from amount due and tendered, then determines the correct amount of dollar bills and/or coins."<<endl<<endl;
+  
+
+  //used to end the loop
+  int end=0;
+  
+  do
+  {
+    //variable declarations
+    string buf;
+    string buf1;
+    
+    int multdue, multtender;
+    double due, tender;
+    double difference;
+    int ohdneed=0;
+    int ftdneed=0;
+    int twdneed=0;
+    int tdneed=0;
+    int fdneed=0;
+    int odneed=0;
+    int ftcneed=0;
+    int qneed=0;
+    int dneed=0;
+    int nneed=0;
+    int pneed=0;
+    
+    cout <<"Enter an amount due, then amount tendered separated by space, and press Enter: \n";
+    cin>>buf; due=atof(buf.c_str());
+    
+    //multiply numbers to denominate bills/cents using whole numbers
+    multdue=due*1000.0;
+    
+    cin>>buf1; tender=atof(buf1.c_str());
+    
+    //multiply numbers to denominate bills/cents using whole numbers
+    multtender=tender*1000.0;
+    
+    //forces decimals and point to show on output
+    cout.setf(ios::fixed|ios::showpoint);
+    
+    difference=tender-due;
+    //cout<<difference<<endl;
+    
+    cout<<"Total change is: $"<<setprecision(2)<<difference<<endl;
+    
+    //change formula
+    difference=multtender-multdue;
+    
+    //only used for checking purposes
+    //cout<<"difference times 1000 equals "<<difference<<endl;
+    
+    //amount denominations
+    //one hundred dollars
+    for (; difference>=100000; ohdneed++)
+    {
+      difference-=100000;
+    }
+    
+    // fifty dollars
+    for (; difference>=50000; ftdneed++)
+    {
+      difference-=50000;
+    }
+    
+    //twenty dollars
+    for (; difference>=20000; twdneed++)
+    {
+      difference-=20000;
+    }
+    
+    //ten dollars
+    for (; difference>=10000; tdneed++)
+    {
+      difference-=10000;
+    }
+    
+    //five dollars
+    for (; difference>=5000; fdneed++)
+    {
+      difference-=5000;
+    }
+    
+    //one dollar
+    for (; difference>=1000; odneed++)
+    {
+      difference-=1000;
+    }
+    
+    //fifty cent denomination which is no longer in production
+    for (; difference>=500; ftcneed++)
+    {
+      difference-=500;
+    }
+    
+    //quarter
+    for (; difference>=250; qneed++)
+    {
+      difference-=250;
+    }
+    
+    //dime
+    for (; difference>=100; dneed++)
+    {
+      difference-=100;
+    }
+    
+    //nickel
+    for (; difference>=50; nneed++)
+    {
+      difference-=50;
+    }
+    
+    //only used to check for correct amount of pennies to display. divide the amount by 10 to get the correct amount of pennies if needed
+    //cout<<difference<<" divide this by 10 to display pennies correctly. If at 0 pennies are not needed"<<endl;
+    
+    //penny
+    for (; difference>=10; pneed++)
+    {
+      difference-=10;
+    }
+    
+    
+    //output results
+    if (ohdneed>=2)
+    {
+      cout<<ohdneed<< " $100 bills"<<endl;
+      
+    }
+    
+    else if (ohdneed==1)
+    {
+      cout<<"1 $100 bill"<<endl;
+    }
+    
+    if (ftdneed>=2)
+    {
+      cout<<ftdneed<< " $50 bills"<<endl;
+      
+    }
+    
+    else if (ftdneed==1)
+    {
+      cout<<"1 $50 bill"<<endl;
+    }
+    
+    if (twdneed>=2)
+    {
+      cout<<twdneed<< " $20 bills"<<endl;
+      
+    }
+    
+    else if (twdneed==1)
+    {
+      cout<<"1 $20 bill"<<endl;
+    }
+    
+    if (tdneed>=2)
+    {
+      cout<<tdneed<< " $10 bills"<<endl;
+      
+    }
+    
+    else if (tdneed==1)
+    {
+      cout<<"1 $10 bill"<<endl;
+    }
+    
+    if (fdneed>=2)
+    {
+      cout<<fdneed<< " $5 bills"<<endl;
+      
+    }
+    
+    else if (fdneed==1)
+    {
+      cout<<"1 $5 bill"<<endl;
+    }
+    
+    if (odneed>=2)
+    {
+      cout<<odneed<< " $1 bills"<<endl;
+      
+    }
+    else if (odneed==1)
+    {
+      cout<<"1 $1 bill"<<endl;
+    }
+    
+    if (ftcneed>=2)
+    {
+      cout<<ftcneed<<" 50-cent coins"<<endl;
+      
+    }
+    
+    else if (ftcneed==1)
+    {
+      cout<<"1 50-cent coin"<<endl;
+    }
+    
+    if (qneed>=2)
+    {
+      cout<<qneed<<" 25-cent coins"<<endl;
+      
+    }
+    
+    else if (qneed==1)
+    {
+      cout<<"1 25-cent coin"<<endl;
+    }
+    
+    if (dneed>=2)
+    {
+      cout<<dneed<< " 10-cent coins"<<endl;
+      
+    }
+    
+    else if (dneed==1)
+    {
+      cout<<"1 10-cent coin"<<endl;
+    }
+    
+    if (nneed>=2)
+    {
+      cout<<nneed<< " 5-cent coins"<<endl;
+      
+    }
+    
+    else if (nneed==1)
+    {
+      cout<<"1 5-cent coin"<<endl;
+    }
+    
+    if (pneed==0)
+    {
+      break;
+    }
+    
+    if(pneed>0)
+    {
+      if (pneed>=2)
+      {
+        cout<<pneed<< " 1-cent coins"<<endl;
+        
+      }
+      
+      else if (pneed==1)
+      {
+        cout<<"1 1-cent coin"<<endl;
+      }
+    }
+    
+    //end the program when end>0
+    end++;
+  }while(end==0);
+}
