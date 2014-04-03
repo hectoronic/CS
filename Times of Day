@@ -1,0 +1,132 @@
+//"Name: Hector de Perio "
+//"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
+//struct definition
+struct tod
+{
+  int hour; // the hour 0-23
+  int minute; //the minute 0-59
+  int second; // the second 0-59
+  char descr[32]; // describes time of the day in text
+};
+
+//prototype functions
+void coutTod(const tod&);
+void coutTod(int, const tod*); //n=number of items in array
+int diffTod(const tod*, const tod*);
+int isAfter(const tod*, const tod*);
+int isBefore(const tod*, const tod*);
+
+
+//main body
+int main ()
+{
+  //identifying information
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDE:Xcode 5 (Mac) and Dev-C++ (Windows)\n";
+  cout<<"Compiler: GNU GCC 4.8.1 (compileonline.com)\n";
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  
+  //declare times and names in an array
+  tod theTime[]= {
+  {12,0,0,"noon"},
+  {00,0,0,"midnight"},
+  {11,30,00,"lunch time"},
+  {18,0,1,"supper time"},
+  {23,59,59,"bed time"}};
+  
+  //print all 5 times and names
+  cout << "Times of day:\n";
+  coutTod(5, theTime);
+  cout << "\n\n";
+  
+  cout << "Measure time differences in seconds:\n";
+  cout << "Difference (in seconds) from "
+  << theTime[2].descr << " to " << theTime[1].descr << " is "
+  << diffTod(&theTime[2], &theTime[1]) << endl;
+  
+  cout << "Difference (in seconds) from "
+  << theTime[3].descr<<" to " << theTime[2].descr << " is "
+  << diffTod(&theTime[3], &theTime[2]) << endl;
+  
+  cout << "Difference (in seconds) from "
+  << theTime[0].descr << " to " << theTime[4].descr << " is "
+  << diffTod(&theTime[0], &theTime[4]) << "\n\n\n";
+  
+  //compare 3 sets of times using both isBefore and isAfter functions
+  cout << "Compare the times if one is before or after another:\n";
+  //compare times#1
+  if(isAfter(&theTime[4], &theTime[3]))
+    cout << theTime[4].descr << " is after " << theTime[3].descr << endl;
+  else
+    cout << theTime[4].descr << " is not after " << theTime[3].descr << endl;
+  
+  //compare times#2
+  if(isBefore(&theTime[0], &theTime[4]))
+    cout << theTime[0].descr << " is before " << theTime[4].descr << endl;
+  else
+    cout << theTime[0].descr << " is not before " << theTime[4].descr << endl;
+  
+  //compare times#3
+  if(isAfter(&theTime[2], &theTime[1]))
+    cout << theTime[2].descr << " is after " << theTime[1].descr << endl;
+  else
+    cout << theTime[2].descr << " is not after " << theTime[1].descr << endl;
+  cout << endl;
+}//main
+
+//functions
+
+//output formatting
+void coutTod(const tod* t)
+{
+  cout << t->descr << " is " << t->hour << ':';
+  if(t->minute< 10) cout << '0'; //output an extra zero for single digit #s
+  cout << t->minute << ':';
+  if(t->second < 10) cout << '0'; //output an extra zero for single digit #s
+  cout << t->second << endl;
+}
+
+void coutTod(int n, const tod* t)//n=number of items in array
+{
+  //output time from the other coutTod function
+  for(int i=0;i<n;i++)
+  {
+    coutTod(&t[i]);
+  } 
+}
+
+//find the difference between two times
+int diffTod(const tod* t1, const tod* t2)
+{
+  long diff = (((long)(t1 -> hour - t2 -> hour) * 3600)
+  + ((long)(t1 -> minute - t2 -> minute) * 60)
+  + (long)(t1 -> second - t2 -> second));
+  return diff;
+}
+
+//if time 1 is after time 2, the result is true ("is after")
+int isAfter(const tod* t1, const tod* t2)
+{
+  int result = diffTod(t1, t2);
+  if (result > 0)
+    return 1;
+  else
+    return 0;
+}
+
+//if time 1 is before time 2, the result is true ("is before")
+int isBefore(const tod* t1, const tod* t2)
+{
+  int result = diffTod(t1, t2);
+  
+  if (result < 0)
+    return 1;
+  else
+    return 0;
+}
+
