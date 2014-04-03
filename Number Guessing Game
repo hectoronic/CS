@@ -1,0 +1,83 @@
+//"Name: Hector de Perio "
+//"IDE : Xcode 5 (Mac) and Dev-C++ (Windows)"
+
+
+//libraries
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <string>
+using std::string;
+
+//used for atoi
+#include <cstdlib>
+
+//use to generate numbers: srand
+#include <ctime>
+
+//subprogram that determines right or wrong guess
+bool guess(int,int);
+
+bool guess (int value, int assume)
+{
+  if (value==assume)return true;
+  
+  if (value < assume)
+    cout<<"The number is higher than your input. Try again, type [help], or input N or n to quit the program: \n";
+  else
+    cout<<"The number is lower than your input. Try again, type [help], or input N or n to quit the program: \n";
+  return false;
+}
+
+
+int main()
+{
+  //identifying information
+  cout<<"By Hector de Perio "<<endl;
+  cout<<"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"This program generates a number from 1 to 1000, and the user guesses the number."<<endl<<endl;
+  
+  srand(time(0));
+  char repeat='y';
+  
+  do
+  {
+    //variable declarations
+    int value;
+    int assume;
+    string buf;
+    
+    //generate random number
+    value = rand () % 1000 + 1;
+    
+    //ask for input
+    cout<<"Input a number between 1 to 1000. If you guess correctly, the program will say so. If incorrect, the program will leave hints. Input n or N to quit: \n";
+    cin>>buf;
+    assume=atoi(buf.c_str());
+    cin.ignore(1000,10);
+    
+    if (buf=="N"||buf=="n") break;
+    
+    //subprogram call
+    while(!guess(assume,value))
+    {
+      cin>>buf;
+      assume=atoi(buf.c_str());
+      cin.ignore(1000,10);
+      
+      if (buf=="help") cout<<"The random number is: "<<value<<endl;
+      if (buf=="n" || buf=="N") break;
+    }
+    if (buf=="n" || buf=="N") break;
+    //prompt when the guess is correct
+    cout<<"Your guess is correct! Enter y or Y to restart the program, or enter any other value to quit: \n";
+    cin>>repeat;
+    cin.ignore(1000,10);
+    
+    //repeat the loop if the user inputs y or Y after a correct guess
+  }while(repeat=='y'|| repeat=='Y');
+  system("PAUSE");
+}
