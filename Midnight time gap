@@ -1,0 +1,61 @@
+//"Name: Hector de Perio "
+//"IDE: Xcode 5 (Mac) and Dev-C++ (Windows)"
+//"Advanced C/C++ Control Structures"
+
+//libraries
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <string>
+using std::string;
+
+//used for atoi
+#include <cstdlib>
+
+//subprograms
+int secondp(int, int, int);
+
+//what the subprogram does
+int secondp(int hr, int mins, int secs)
+{
+  
+  //the formula multiplies hours by 60*60 and minutes by 60, then adds all values to get a number of seconds past 12 am
+  return (hr*60*60)+(mins*60)+secs;
+}
+int main()
+{
+  //identifying information
+  cout<<"By: Hector de Perio "<<endl;
+  cout<<"IDE: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"This program determines the time past in seconds since 12 A.M. today. Input q or Q to quit the program."<<endl<<endl;
+  
+  while(true)
+  {
+    //variable declarations
+    int hr, mins, secs;
+    string buf,buf1,buf2;
+    
+    cout<<"Enter the hours past since 12 A.M. (q or Q to quit): \n";
+    cin>>buf; hr=atoi(buf.c_str());
+    cin.ignore(1000,10);
+    
+    if (buf=="q" || buf=="Q") break;
+    
+    cout<<"Enter the minutes past since 12 A.M. (q or Q to quit): \n";
+    cin>>buf1; mins=atoi(buf1.c_str());
+    cin.ignore(1000,10);
+    
+    if (buf1=="q" || buf1=="Q") break;
+    
+    cout<<"Enter the seconds past since 12 A.M. (q or Q to quit): \n";
+    cin>>buf2; secs=atoi(buf2.c_str());
+    cin.ignore(1000,10);
+    
+    if (buf2=="q" || buf2=="Q") break;
+    
+    cout<<"Seconds past since 12 A.M.: \n"<<secondp(hr,mins,secs)<<endl;
+  }
+}
