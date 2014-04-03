@@ -1,0 +1,89 @@
+//"Name: Hector de Perio "
+//"IDE and Compiler: Xcode 5 (Mac) and Dev-C++ (Windows)"
+//"This program asks for a number between 1 to 20 and draws a box of that size."
+
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <string>
+using std::string;
+
+//used for atoi
+#include <cstdlib>
+
+int main()
+{
+  //identifying information
+  cout<<"Name: Hector de Perio "<<endl;
+  cout<<"IDE and Compilers: Xcode 5 (Mac) and Dev-C++ (Windows)"<<endl;
+  cout<<"Compiled: "<<__DATE__<<" at " <<__TIME__<<endl<<endl;
+  cout<<"This program asks for a number between 1 to 20 and draws a box of that size."<<endl<<endl;
+  
+  while(true)
+  {
+  //variable declarations
+  int a;
+  int b=1;
+  int c;
+  string buf;
+  
+  //user input prompt
+  cout<<"Enter the size of the square (from 1 to 20). Any other input will close the program: ";
+  cin>>buf; a=atoi(buf.c_str());
+  cin.ignore(1000,10);
+  
+  //end program if the user entered a number that's less than 1 or greater than 20
+  if (a<1) break;
+  if (a>20) break;
+  
+  while(b<=a)
+  {
+  c=1;
+  while(c<=a)
+  {
+  if(b==1)
+  {
+
+  //print star(s) on top
+  cout<<"*";
+  c++;
+  }
+  else if((b>1)&&(b<a))
+  {
+  if(c==1)
+  {
+  	
+  //print star(s) in middle of square
+  cout<<"*";
+  c++;            
+  }
+  else if((c>1)&&(c<a))
+  {
+
+  //print spaces between square
+  cout<<" ";
+  c++;
+  }
+  else
+  {
+
+  //print last star(s) in middle
+  cout<<"*";
+  c++;
+  }
+  }
+  else
+  {
+  
+  //print bottom star(s)
+  cout << "*";
+  c++;
+  }
+  }
+  cout<<endl;
+  b++;    
+  }
+}
+}
