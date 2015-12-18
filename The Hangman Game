@@ -1,8 +1,5 @@
-//"Name: Hector de Perio "
+
 //"IDE and Compiler: Xcode 5 (Mac) and Dev-C++ (Windows)"
-//"Advanced C/C++ Control Structures"
-//Lab 5: The Hangman Game
-//"File: hangman.cpp"
 
 #include <algorithm>
 #include <cctype>
